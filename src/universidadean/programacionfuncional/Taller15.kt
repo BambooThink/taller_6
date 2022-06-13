@@ -47,7 +47,7 @@ data class Triangulo(val id: Int,
  * Si la lista está vacía, retorne null
  */
 fun metodo6(dptos: IList<Departamento>): String? {
-    TODO("Completar")
+    return dptos.minWith(compareBy { it.añoCreacion })!!.nombre
 }
 
 /**
@@ -56,7 +56,7 @@ fun metodo6(dptos: IList<Departamento>): String? {
  * como parámetro.
  */
 fun metodo7(dptos: IList<Departamento>, poblacion: Int): Departamento? {
-    TODO("Completar")
+    return dptos.filter{ it.poblacion > poblacion}.maxWith(compareBy { it.superficie })
 }
 
 /**
@@ -64,7 +64,8 @@ fun metodo7(dptos: IList<Departamento>, poblacion: Int): Departamento? {
  * en el siglo XX y que tenga un IDH entre 0.85 y 0.95
  */
 fun metodo8(dptos: IList<Departamento>): IList<String> {
-    TODO("Completar")
+    return dptos.filter { (it.añoCreacion >= 1900 && it.añoCreacion < 2000) && (it.IDH >= 0.85 && it.IDH <= 0.95) }
+        .map { it.nombre }
 }
 
 /**
@@ -72,7 +73,7 @@ fun metodo8(dptos: IList<Departamento>): IList<String> {
  * esté por debajo del valor que se pasa como parámetro
  */
 fun metodo9(deptos: IList<Departamento>, valor: Double): Double {
-    TODO("Completar")
+    return ((deptos.filter { it.densidad < valor }.count() * 100).toDouble() / deptos.count())
 }
 
 /**
@@ -81,7 +82,9 @@ fun metodo9(deptos: IList<Departamento>, valor: Double): Double {
  * IDH de toda la lista
  */
 fun metodo10(deptos: IList<Departamento>): Double {
-    TODO("Completar")}
+    val d: IList<Departamento> = deptos.filter { it.poblacion > deptos.minWith(compareBy { it.IDH })!!.poblacion }
+    return d.sumByDouble { it.superficie } / d.count()
+}
 
 //-------------------------------------------------------------------
 // Operaciones con la clase Municipio
@@ -91,7 +94,7 @@ fun metodo10(deptos: IList<Departamento>): Double {
  * Determinar y retornar cuántos municipios de la lista son capitales
  */
 fun metodo11(muns: IList<Municipio>): Int {
-    TODO("Completar")
+    return muns.filter{it.esCapital}.count()
 }
 
 /*
